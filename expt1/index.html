@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Result Calculator</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        .box {
+            width: 520px;
+            min-height: 420px;
+            background-color: white;
+            border: 2px solid #444;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            padding: 30px;
+            margin: 30px auto;
+            border-radius: 10px;
+            text-align: center;
+        }
+        h2 {
+            color: #1a3c6d;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin: 25px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="number"] {
+            width: 140px;
+            padding: 10px;
+            font-size: 17px;
+            border: 2px solid #ccc;
+            border-radius: 6px;
+            text-align: center;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 3px rgba(26,115,232,0.2);
+        }
+        #result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            line-height: 1.7;
+            text-align: left;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
+            min-height: 120px;
+        }
+        button {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 40px;
+            font-size: 17px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0d5bd9;
+        }
+        .info {
+            text-align: center;
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 15px;
+        }
+        strong {
+            color: #1a3c6d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Student Result Calculator</h2>
+
+    <div class="input-group">
+        <label for="numSubjects">Enter Number of Subjects</label>
+        <input type="number" id="numSubjects" min="1" max="10" value="5" placeholder="e.g. 5">
+    </div>
+
+    <button onclick="calculateResult()">Calculate Result</button>
+
+    <div id="result">
+        Enter number of subjects: 
+    </div>
+</div>
+
+<script>
+function calculateResult() {
+    let nInput = document.getElementById("numSubjects").value.trim();
+    let n = Number(nInput);
+    let total = 0;
+
+    for (let i = 1; i <= n; i++) {
+        let marksStr = prompt("Enter marks of subject " + i + " (0-100):");
+        let marks = parseFloat(marksStr);
+        total += marks;
+    }
+
+    let average = total / n;
+    let averageFixed = average.toFixed(2);
+
+    let grade = "";
+    let resultStatus = "";
+
+    if (average >= 90)      grade = "A";
+    else if (average >= 80) grade = "B";
+    else if (average >= 70) grade = "C";
+    else if (average >= 60) grade = "D";
+    else if (average >= 40) grade = "E";
+    else                    grade = "F";
+
+    resultStatus = (average >= 40) ? "PASS" : "FAIL";
+
+    let output = `
+        <strong>Total Marks: ${total}</strong><br>
+        <strong>Average Marks: ${averageFixed}</strong><br>
+        <strong>Grade: ${grade}</strong><br>
+        <strong>Result: ${resultStatus}</strong>
+    `;
+
+    document.getElementById("result").innerHTML = output;
+}
+</script>
+
+</body>
+</html>
